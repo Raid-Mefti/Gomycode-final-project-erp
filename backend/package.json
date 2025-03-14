@@ -1,11 +1,15 @@
 {
   "dependencies": {
+    "@eslint/js": "^9.22.0",
     "@faker-js/faker": "^9.5.1",
-    "axios": "^1.8.1",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.3",
     "express": "^4.21.2",
+    "globals": "^16.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.0",
     "multer": "^1.4.5-lts.1",
@@ -17,12 +21,14 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier . -w"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  }
 }
