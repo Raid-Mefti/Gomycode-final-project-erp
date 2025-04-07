@@ -9,7 +9,7 @@ import { Product } from '../models/Product';
 import { ProductionStep } from '../models/ProductionSteps';
 import { RawMaterial } from '../models/RawMaterials';
 import { Logistics } from '../models/Logistics';
-import { Employee } from '../models/Employee';
+import { Employee } from '../models/employee';
 import { Billing, BillingType, BillingStatus } from '../models/Billing';
 import { Client } from '../../models/Client';
 import { Commercial } from '../models/Commercial';
