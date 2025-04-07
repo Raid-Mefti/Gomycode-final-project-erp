@@ -1,35 +1,32 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model, Document, Types } from 'mongoose';
 
-// interface pour le modele Employee
-export interface EmployeeI extends Document {
+interface IEmployee extends Document<Types.ObjectId> {
   firstName: string;
   lastName: string;
-  email: string;
-  phoneNumber: string;
-  address: string;
+  age: number;
+  gender: string;
   service: string;
   role: string;
-  healthStatus: string;
-  familySituation: string;
-  militarySituation: string;
-  attendances?: Schema.Types.ObjectId[];
-  contracts?: Schema.Types.ObjectId[];
+  image?: string;
+  user: Types.ObjectId; // Reference to User model
+  createdAt: Date;
+  updatedAt: Date;
+  logisticsTeam?: Schema.Types.ObjectId; // Reference to Logistics team
+  isLogisticsManager: boolean;
 }
 
-// Schema pour Employee
-const EmployeeSchema = new Schema<EmployeeI>({
+const EmployeeSchema = new Schema<IEmployee>({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  phoneNumber: { type: String, required: true },
-  address: { type: String, required: true },
-  service: { type: String, required: true },
+  age: { type: Number, required: true },
+  gender: { type: String, required: true, enum: ['male', 'female', 'other'] },
+  service: { type: String, required: true, enum: ['RH', 'marketing', 'finance', 'commercial', 'logistic'] },
   role: { type: String, required: true },
-  healthStatus: { type: String, required: true },
-  familySituation: { type: String, required: true },
-  militarySituation: { type: String, required: true },
-  attendances: [{ type: Schema.Types.ObjectId, ref: "Attendance" }],
-  contracts: [{ type: Schema.Types.ObjectId, ref: "Contract" }],
-});
+  image: { type: String },
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  logisticsTeam: { type: Schema.Types.ObjectId, ref: 'Logistics' },
+  isLogisticsManager: { type: Boolean, default: false }
 
-export const EmployeeModel = model<EmployeeI>("Employee", EmployeeSchema);
+}, { timestamps: true });
+
+export const Employee = model<IEmployee>('Employee', EmployeeSchema);

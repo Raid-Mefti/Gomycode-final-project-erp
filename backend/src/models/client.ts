@@ -1,27 +1,33 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model, Document, Types } from 'mongoose';
 
-// interface pour le modele Client
-interface ClientI extends Document {
-  clientCode: string;
+interface IClient extends Document <Types.ObjectId>{
+  clientId: string;
   firstName: string;
   lastName: string;
-  email: string;
-  phone: string;
-  companyAddress: string;
-  fees: number;
-  commerceRegistryNumber?: string;
+  location: string;
+  type: string;
+  image?: string;
+  target: string;
+  payment: {
+    method: string;
+    terms: string;
+  };
+  commercial: Schema.Types.ObjectId;
 }
 
-// Schema pour Client
-const ClientSchema = new Schema<ClientI>({
-  clientCode: { type: String, required: true, unique: true },
+const ClientSchema = new Schema<IClient>({
+  clientId: { type: String, required: true, unique: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  phone: { type: String, required: true },
-  companyAddress: { type: String, required: true },
-  fees: { type: Number, required: true, default: 0 },
-  commerceRegistryNumber: { type: String },
+  location: { type: String, required: true },
+  type: { type: String, required: true },
+  image: { type: String },
+  target: { type: String, required: true },
+  payment: {
+    method: { type: String, required: true },
+    terms: { type: String, required: true }
+  },
+  commercial: { type: Schema.Types.ObjectId, ref: 'Commercial', required: true }
 });
 
-export const Client = model<ClientI>("Client", ClientSchema);
+export const Client = model<IClient>('Client', ClientSchema);
